@@ -2,6 +2,10 @@ const card2 = document.querySelector('.card2');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 
+
+const cards = document.querySelectorAll('.animate-on-scroll');
+
+
 let index = 0;
 
 const cardWidth = 300;
@@ -31,6 +35,26 @@ function updateSlider() {
 }
 
 
+
+
+
+// АНИМАЦИЯ КАРТОЧЕК НАПРАВЛЕНИЙ СПЕЦИАОЛЬНОСТЕЙ 
+
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Убираем, чтобы не анимировалось повторно
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  cards.forEach(card => {
+    observer.observe(card);
+  });
 
 
 

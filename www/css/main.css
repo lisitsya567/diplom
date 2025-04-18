@@ -221,6 +221,83 @@ header nav ul li.btn a:hover {
 
 /* 2 Лист --------------------------------------------   */
 
+.container-direction {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .direction-menu:not(direction-zagalovok) {
+    text-align: left;
+  }
+  
+  .direction-zagalovok {
+    font-size: 70px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .main-direction {
+    column-count: 4;
+    column-gap: 20px;
+  }
+  
+  .card-direction {
+    width: 100%;
+    background-color: #C69C72;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: white;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  
+  .card-direction h3 {
+    font-size: 28px;
+    margin-top: 0;
+  }
+  
+  .card-direction a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  
+  /* Адаптация под планшеты */
+  @media screen and (max-width: 1200px) {
+    .main-direction {
+      column-count: 3;
+    }
+  }
+  
+  /* Адаптация под телефоны */
+  @media screen and (max-width: 768px) {
+    .main-direction {
+      column-count: 2;
+    }
+  
+    .direction-zagalovok {
+      font-size: 32px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .main-direction {
+      column-count: 1;
+    }
+  
+    .direction-zagalovok {
+      font-size: 26px;
+    }
+  }
+
+/* 3 Лист ниже ------------------------------------------------- */
+
 .doctors h2 {
     font-size: 70px;
     font-weight: 600;
@@ -234,7 +311,7 @@ header nav ul li.btn a:hover {
 }
 
 
-/* 2 лист с врачами  */
+/* 3 лист с врачами  */
 
 .doctors {
     padding: 50px 0;
