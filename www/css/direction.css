@@ -148,19 +148,27 @@ header nav ul li.btn a:hover {
 
  /* 1 ЧАСТЬ ---------   ПРОМО (РЕКЛАМА) АНДРОЛОГИЯ ---------------------------------------------------------------- */
 
+/* ПРОМО КАРТИНКА ------------------ */
+
+
+.promo-img img {
+    border-radius: 25%;
+}
+
 .promo {
     width: 1400px;
     height: 500px;
     border-radius: 25px;
-    background-color: green;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    margin-top: 20px;
 }
 
 .promo h3 {
-    /* font-family:'Rubik'; */
     font-weight: 400;
     font-size: 40px;
     padding: 0 25px;
-    padding-top: 180px;
+    padding-top: 100px;
 }
 
 
@@ -176,17 +184,33 @@ header nav ul li.btn a:hover {
 }
 
 
+
+
+/* ЗАГОЛОВОК С НАЗВАНИЕМ ВРАЧЕЙ -------------------------- */
+
+
+
+
+.doctors-title-main {
+    display: flex;
+    justify-content: center;
+}
+
+.doctors-title {
+    font-family:'Rubik';
+    color: white;
+    font-weight: 400;
+    font-size: 60px;
+    padding-top: 20px;
+}
+
+
+
 /* КАРТОЧКИ ВРАЧЕЙ --------------------------------------------------------- */
 
 
 
 .cards-doctors {
-    /* flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; */
-
-    /* position: relative;
-    padding: 40px 0; */
     overflow: visible;
 }
 
@@ -265,7 +289,8 @@ header nav ul li.btn a:hover {
 .doctors-slider-wrapper {
     position: relative;
     overflow: visible;
-    padding: 0 60px; 
+    padding: 0 60px;
+    min-width: 0;
   }
 
 
@@ -290,39 +315,6 @@ header nav ul li.btn a:hover {
 }
 
 
-/* .doctor-slider-btn-prev,
-.doctor-slider-btn-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.doctor-slider-btn-prev {
-    left: -20px;
-}
-
-.doctor-slider-btn-next {
-    right: -20px;
-} */
-
-
-
-/* Стрелки */
-
-
-/* .doctor-slider-nav {
-    width: 1500px;
-} */
 
 
 
@@ -349,10 +341,6 @@ header nav ul li.btn a:hover {
 
 
 
-/* .doctor-slider-btn-prev,
-.doctor-slider-btn-next {
-  pointer-events: all; 
-} */
 
 .doctor-slider-btn-prev:hover,
 .doctor-slider-btn-next:hover {
