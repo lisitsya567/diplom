@@ -1,0 +1,226 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background:  #191919;
+}
+
+.container {
+    width: 1400px;
+    height: auto;
+    
+}
+
+.profile-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: black;
+    border-radius: 10px;
+    padding: 30px 40px;
+
+}
+
+.profile-block h3 {
+    color: #fff;
+    font-size: 24px;
+}
+
+.profile-block p {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.profile-block b {
+    font-family:'Rubik';
+    color: #fff;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.profile-block form label{
+    font-family:'Rubik';
+    color: #fff;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.profile-block form input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 13px 10px 10px;
+    margin-bottom: 10px;
+    
+}
+
+.profile-block button {
+    width: 170px;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 10px 13px 10px 10px;
+    font-family:'Rubik';
+    color: #191919;
+    font-size: 17px;
+    font-weight: 400;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.profile-records-outer {
+    /* width: 800px;
+    height: 300px;
+    min-width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+    background: red;
+    border-radius: 16px;
+    padding: 32px 0px 32px 0;
+    box-shadow: 0 2px 8px #0001; */
+
+    width: 800px;
+    height: 300px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: black;
+    border-radius: 10px;
+    padding: 30px 40px;
+
+}
+
+
+
+
+.profile-records-outer h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 27px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+.profile-slider-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 100px;
+    position: relative;
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    background: none;
+    padding: 0;
+}
+.profile-cards {
+    height: 260px !important;
+    margin: 0 10px;
+}
+/* .swiper-wrapper {
+    width: 100% !important;
+} */
+.swiper-slide {
+    min-width: 340px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px #0001;
+    padding: 14px 16px 12px 16px;
+    margin: 0;
+    height: 180px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+.swiper-slide b {
+    font-family:'Rubik';
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.swiper-slide span {
+    font-family:'Rubik';
+    color: black;
+    font-size: 17px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.swiper-slide br {
+    display: none;
+}
+
+.profile-slider-btn-prev, .profile-slider-btn-next {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background-color: white;
+    border-radius: 15%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.9s ease rgb(198,156,114, 1);
+    background-color: rgb(198,156,114, 0.7);
+    position: relative;
+    top: -50px;
+}
+.profile-slider-btn-prev:hover, .profile-slider-btn-next:hover {
+    background: #e0e0e0;
+}
+
+.profile-slider-btn-prev svg, .profile-slider-btn-next svg {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    display: block;
+}
+
+
+.btn-danger {
+    background-color: #C69C72;
+    border-radius: 10px;
+    padding: 7px 10px 7px 7px;
+    color: #191919;
+    font-size: 15px;
+    font-weight: 400;
+    font-family:'Rubik';
+    outline: none;
+    margin-top: 5px;
+    border: none;
+}
