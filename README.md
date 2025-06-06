@@ -60,3 +60,4 @@
 
 ## ERD-диаграмма 
 
+![ERD](https://github.com/lisitsya567/image_1/blob/main/bd%20m%2B.png)
