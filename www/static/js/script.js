@@ -72,4 +72,67 @@ const observer = new IntersectionObserver(entries => {
 //     myMap.setType("yandex#dark");
 // });
 
+// Поиск врача в форме отзыва
+if (window.reviewDoctors) {
+    const input = document.getElementById('doctor_search');
+    const results = document.getElementById('doctor_search_results');
+    const hiddenId = document.getElementById('doctor_id');
+    input.addEventListener('input', function() {
+        const val = input.value.trim().toLowerCase();
+        results.innerHTML = '';
+        if (!val) {
+            hiddenId.value = '';
+            results.style.display = 'none';
+            return;
+        }
+        const matches = window.reviewDoctors.filter(d => d.name.toLowerCase().includes(val));
+        if (matches.length === 0) {
+            results.style.display = 'none';
+            hiddenId.value = '';
+            return;
+        }
+        results.style.display = 'block';
+        matches.forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'search-result-item';
+            div.textContent = d.name;
+            div.onclick = () => {
+                input.value = d.name;
+                hiddenId.value = d.id;
+                results.style.display = 'none';
+            };
+            results.appendChild(div);
+        });
+    });
+    // Скрывать выпадающее при клике вне
+    document.addEventListener('click', function(e) {
+        if (!results.contains(e.target) && e.target !== input) {
+            results.style.display = 'none';
+        }
+    });
+}
+
+// Бургер-меню для мобильных 
+document.addEventListener('DOMContentLoaded', function() {
+  const burger = document.getElementById('burger-menu');
+  const nav = document.getElementById('main-nav');
+  const body = document.body;
+  
+  if (burger && nav) {
+    burger.addEventListener('click', function() {
+      nav.classList.toggle('open');
+      burger.classList.toggle('open');
+      body.classList.toggle('menu-open');
+    });
+    
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+        body.classList.remove('menu-open');
+      });
+    });
+  }
+});
+
 
