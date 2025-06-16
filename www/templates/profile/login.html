@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицина+</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=lock" />
+</head>
+<body>
+    
+
+    <div class="video-bg">
+        <video src="/static/video/video-bg.mp4" type="video/mp4" autoplay muted loop></video>
+        <div class="effects"></div>
+        <div class="video-bg__content">
+
+
+            <header class="container">
+                
+                <!-- <span class="logo">logo</span> -->
+                <a href="/"><img src="/static/image/logo.png" alt="site logo"></a>
+                <nav>
+                    
+                    <ul>
+                        <!-- <li><a href="#">Новое</a></li>
+                        <li><a href="#contact-meditsina-plus">Контакты</a></li>
+                        <li><a href="#">О нас</a></li> -->
+                        {% if auth %}
+                            <li class="btn"><a href="/profile/me">Профиль</a></li>
+                        {% else %}
+                            <li class="btn"><a href="/profile/login">Войти</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+
+
+            <div class="input-main-box">
+
+                <div class="wrapper">
+
+                    <form action="/profile/login" method="post">
+                        <h2>Вход в личный кабинет</h2>
+
+                        <div class="input-box">
+                            <input type="text" name="username" placeholder="Имя пользователя" required>
+                            <i class='bxr  bx-user'></i>
+                        </div>
+
+                        <div class="input-box">
+                            <input type="password" name="password" placeholder="Пароль" required>
+                            <i class='bxr  bx-lock'></i> 
+                            
+                        </div>
+
+                        <div class="remember-forgot">
+                            <label><input type="checkbox" name="" id="">Запомнить меня</label>
+                            <a href="#">Забыли пароль?</a>
+                        </div>
+
+                        <button type="submit" class="btn">Войти</button>
+
+                        <div class="register-link">
+                            <p>Нету личного кабинета? <a href="/profile/register">Зарегестрироваться</a></p>
+                        </div>
+
+                    </form>
+
+                </div>
+                
+            </div>
+            
+
+
+
+            <!-- <div class="authorization">
+
+                <div class="authorization-box">
+
+                    <div class="authorization-main">
+
+                        <div class="authorization-main-img">
+                            <img src="/static/image/logo.png" alt="#">
+                        </div>
+
+                        <div class="authorization-main-h3">
+                            <h3>Вход в личный кабинет</h3>
+                        </div>
+
+                        <div class="email-main">
+
+                            <div class="email-main-h4">
+                                <h4>Ваша почта</h4>
+                            </div>
+
+                            <div class="email-main-input">
+                                <input class="input" type="email">
+                            </div>
+                            
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+
+            </div> -->
+
+
+
+            
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>

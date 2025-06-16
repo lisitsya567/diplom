@@ -1,0 +1,49 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Отзывы{% endblock %}
+{% block header %}Отзывы{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Пациент</th>
+                    <th>Врач</th>
+                    <th>Текст</th>
+                    <th>Дата</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review.id }}</td>
+                    <td>{{ review.patient.fname }} {{ review.patient.lname }}</td>
+                    <td>{{ review.doctor.fname }} {{ review.doctor.lname }}</td>
+                    <td>{{ review.text }}</td>
+                    <td>{{ review.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteReview({{ review.id }})">Удалить</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function deleteReview(id) {
+    if (!confirm('Вы уверены, что хотите удалить этот отзыв?')) return;
+    const response = await fetch(`/admin/reviews/${id}`, { method: 'DELETE' });
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        alert('Ошибка при удалении отзыва');
+    }
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,124 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Пользователи{% endblock %}
+{% block header %}Пользователи{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя пользователя</th>
+                    <th>Email</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Телефон</th>
+                    <th>ДМС</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.patient.fname if user.patient else '' }}</td>
+                    <td>{{ user.patient.lname if user.patient else '' }}</td>
+                    <td>{{ user.patient.phone if user.patient else '' }}</td>
+                    <td>{{ user.patient.dms if user.patient else '' }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-admin" onclick="editUser({{ user.id }})">Редактировать</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteUser({{ user.id }})">Удалить</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Модалка редактирования пользователя -->
+<div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать пользователя</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" name="id">
+                    <div class="mb-3">
+                        <label class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" name="fname">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="form-control" name="lname">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Телефон</label>
+                        <input type="text" class="form-control" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ДМС</label>
+                        <input type="text" class="form-control" name="dms">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-admin" onclick="submitEditUser()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function editUser(id) {
+    const response = await fetch(`/admin/users/${id}`);
+    const user = await response.json();
+    const form = document.getElementById('editUserForm');
+    form.id.value = user.id;
+    form.username.value = user.username;
+    form.email.value = user.email;
+    form.fname.value = user.fname || '';
+    form.lname.value = user.lname || '';
+    form.phone.value = user.phone || '';
+    form.dms.value = user.dms || '';
+    new bootstrap.Modal(document.getElementById('editUserModal')).show();
+}
+async function submitEditUser() {
+    const form = document.getElementById('editUserForm');
+    const formData = new FormData(form);
+    const response = await fetch(`/admin/users/${form.id.value}`, {
+        method: 'PUT',
+        body: formData
+    });
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        alert('Ошибка при обновлении пользователя');
+    }
+}
+async function deleteUser(id) {
+    if (!confirm('Вы уверены, что хотите удалить этого пользователя?')) return;
+    const response = await fetch(`/admin/users/${id}`, { method: 'DELETE' });
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        alert('Ошибка при удалении пользователя');
+    }
+}
+</script>
+{% endblock %} 

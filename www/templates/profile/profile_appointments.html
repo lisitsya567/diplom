@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2>Мои записи</h2>
+    
+    {% if appointments %}
+
+        <div class="table-responsive">
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+                        
+                        <th>Врач</th>
+                        <th>Специализация</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Статус</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for appt in appointments %}
+
+                        <tr>
+
+                            <td>{{ appt.doctor.fname }} {{ appt.doctor.lname }}</td>
+                            <td>{{ appt.doctor.specialization }}</td>
+                            <td>{{ appt.date.strftime('%d.%m.%Y') }}</td>
+                            <td>{{ appt.time.strftime('%H:%M') }}</td>
+
+                            <td>
+
+                                {% if appt.date > now.date() or (appt.date == now.date() and appt.time > now.time()) %}
+                                    <span class="badge bg-primary">Предстоит</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Прошло</span>
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info">
+            У вас пока нет записей к врачам.
+        </div>
+
+    {% endif %}
+    
+    <div class="mt-4">
+        <a href="/" class="btn btn-primary">Найти врача</a>
+    </div>
+
+
+</div>
+
+
+{% endblock %} 

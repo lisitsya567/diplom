@@ -1,0 +1,238 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Управление врачами{% endblock %}
+
+{% block header %}Управление врачами{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Кнопка добавления нового врача -->
+    <div class="mb-4">
+        <button type="button" class="btn btn-admin" data-bs-toggle="modal" data-bs-target="#addDoctorModal">
+            Добавить врача
+        </button>
+    </div>
+
+    <!-- Таблица врачей -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Фото</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Специализация</th>
+                    <th>Цена</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.id }}</td>
+                    <td>
+                        {% if doctor.photo %}
+                        <img src="{{ doctor.photo }}" alt="Фото врача" style="width: 50px; height: 50px; object-fit: cover;">
+                        {% else %}
+                        <div style="width: 50px; height: 50px; background-color: #ddd;"></div>
+                        {% endif %}
+                    </td>
+                    <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.surname }}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>{{ doctor.price }} ₽</td>
+                    <td>
+                        <button class="btn btn-sm btn-admin" onclick="editDoctor({{ doctor.id }})">Редактировать</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteDoctor({{ doctor.id }})">Удалить</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Модалка добавления врача -->
+<div class="modal fade" id="addDoctorModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавить врача</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addDoctorForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="form-control" name="surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Специализация</label>
+                        <input type="text" class="form-control" name="specialization" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Цена</label>
+                        <input type="number" class="form-control" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фото</label>
+                        <input type="file" class="form-control" name="photo" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDoctorTitle" class="form-label">Описание</label>
+                        <input type="text" class="form-control" id="addDoctorTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDoctorExperience" class="form-label">Стаж (лет)</label>
+                        <input type="text" class="form-control" id="addDoctorExperience" name="experience" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-admin" onclick="submitAddDoctor()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модалка редактирования врача -->
+<div class="modal fade" id="editDoctorModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать врача</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editDoctorForm" enctype="multipart/form-data">
+                    <input type="hidden" name="id">
+                    <div class="mb-3">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фамилия</label>
+                        <input type="text" class="form-control" name="surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Специализация</label>
+                        <input type="text" class="form-control" name="specialization" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Цена</label>
+                        <input type="number" class="form-control" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фото</label>
+                        <input type="file" class="form-control" name="photo" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDoctorTitle" class="form-label">Описание</label>
+                        <input type="text" class="form-control" id="editDoctorTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDoctorExperience" class="form-label">Стаж (лет)</label>
+                        <input type="text" class="form-control" id="editDoctorExperience" name="experience" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-admin" onclick="submitEditDoctor()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function submitAddDoctor() {
+    const form = document.getElementById('addDoctorForm');
+    const formData = new FormData(form);
+    
+    try {
+        const response = await fetch('/admin/doctors/add', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Ошибка при добавлении врача');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Ошибка при добавлении врача');
+    }
+}
+
+async function editDoctor(id) {
+    try {
+        const response = await fetch(`/admin/doctors/${id}`);
+        const doctor = await response.json();
+        
+        const form = document.getElementById('editDoctorForm');
+        form.id.value = doctor.id;
+        form.name.value = doctor.name;
+        form.surname.value = doctor.surname;
+        form.specialization.value = doctor.specialization;
+        form.price.value = doctor.price;
+        
+        new bootstrap.Modal(document.getElementById('editDoctorModal')).show();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Ошибка при загрузке данных врача');
+    }
+}
+
+async function submitEditDoctor() {
+    const form = document.getElementById('editDoctorForm');
+    const formData = new FormData(form);
+    
+    try {
+        const response = await fetch(`/admin/doctors/${form.id.value}`, {
+            method: 'PUT',
+            body: formData
+        });
+        
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Ошибка при обновлении врача');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Ошибка при обновлении врача');
+    }
+}
+
+async function deleteDoctor(id) {
+    if (!confirm('Вы уверены, что хотите удалить этого врача?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/admin/doctors/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Ошибка при удалении врача');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Ошибка при удалении врача');
+    }
+}
+</script>
+{% endblock %} 

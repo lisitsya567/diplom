@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+
+
+<body>
+
+
+
+    <div class="wrapper">
+
+
+        <header class="container">
+
+            <a href="/"><img src="/static/image/logo.png" alt="site logo"></a>
+
+            <nav>
+
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    
+                    <li><a href="/profile/logout">Выйти</a></li>
+                </ul>
+
+            </nav>
+
+        </header>
+
+
+
+        <div class="container mt-5">
+            
+            <div class="profile-flex-row">
+                <div class="profile-records-outer">
+                    <h3 style="margin-left: 32px; margin-bottom: 12px;">Мои записи</h3>
+                    <div class="profile-slider-wrapper">
+                        <div class="profile-slider-btn-prev" style="margin-right: 10px;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="swiper profile-cards">
+                            <div class="swiper-wrapper">
+                                {% for appt in appointments %}
+                                <div class="swiper-slide">
+                                    <b>{{ appt.doctor.fname }} {{ appt.doctor.lname }}</b><br>
+                                    <span style="margin-top: 7px; font-size: 18px;">{{ appt.doctor.specialization }}</span><br>
+                                    <span>{{ appt.date.strftime('%d.%m.%Y') }} {{ appt.time.strftime('%H:%M') }}</span><br>
+                                    <span style="font-size: 15px; color: #888;">Статус: {{ appt.status }}</span>
+                                    {% if appt.status == "запланировано" %}
+                                    <form action="/appointment/cancel/{{ appt.id }}" method="post" style="display: inline; margin-top: 6px;">
+                                        <button type="submit" class="btn btn-danger">Отменить запись</button>
+                                    </form>
+                                    <button type="button" class="btn btn-reschedule" onclick="openRescheduleModal(parseInt('{{ appt.id }}'), '{{ appt.date.strftime('%Y-%m-%d') }}', '{{ appt.time.strftime('%H:%M') }}', '{{ appt.doctor.id }}')">Перезаписаться</button>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="profile-slider-btn-next" style="margin-left: 10px;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M9 6L15 12L9 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="profile-block">
+                                {% if error %}
+                                    <div style="color: red; margin-bottom: 10px;">{{ error }}</div>
+                                {% endif %}
+                                <h3>Данные аккаунта</h3>
+                                <p><b>Имя пользователя:</b> {{ user.username }}</p>
+                                <p><b>Email:</b> {{ user.email }}</p>
+                                <h3>Личные данные</h3>
+                                <form action="/profile/update" method="post">
+                                    <label>Фамилия: <input type="text" name="lname" value="{{ patient.lname }}" required></label><br>
+                                    <label>Имя: <input type="text" name="fname" value="{{ patient.fname }}" required></label><br>
+                                    <label>Телефон: <input type="text" name="phone" value="{{ patient.phone }}" required></label><br>
+                                    <label>ДМС: <input type="text" name="dms" value="{{ patient.dms }}" required></label><br>
+                                    <button type="submit">Сохранить изменения</button>
+                                </form>
+                                <h3>Смена пароля</h3>
+                                <form action="/profile/change-password" method="post">
+                                    <label>Старый пароль: <input class="old_password" type="password" name="old_password" required></label><br>
+                                    <label>Новый пароль: <input class="new_password" type="password" name="new_password" required></label><br>
+                                    <label>Повторите новый пароль: <input class="new_password2" type="password" name="new_password2" required></label><br>
+                                    <button type="submit">Сменить пароль</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/static/js/profile.js"></script>
+
+    <!-- МОДАЛКА ДЛЯ ПЕРЕЗАПИСИИИИИИИИИИИИИИИИИИИИИИ -->
+    <div id="rescheduleModal" class="modal" tabindex="-1" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:24px; border-radius:12px; min-width:320px; max-width:90vw; margin:auto; position:relative;">
+        <h4>Перезаписаться</h4>
+        <form id="rescheduleForm" method="post">
+          <input type="hidden" name="appt_id" id="reschedule_appt_id">
+          <input type="hidden" id="reschedule_doctor_id">
+          <label>Дата: <input type="date" name="date" id="reschedule_date" required></label><br><br>
+          <label>Время: 
+            <select name="time" id="reschedule_time" required>
+              <option value="">Выберите время</option>
+            </select>
+          </label><br><br>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+          <button type="button" class="btn btn-secondary" onclick="closeRescheduleModal()" style="margin-left:8px;">Отмена</button>
+        </form>
+      </div>
+    </div>
+    <script>
+    async function fetchAvailableTimes(doctorId, date, selectedTime) {
+      const select = document.getElementById('reschedule_time');
+      select.innerHTML = '<option value="">Загрузка...</option>';
+      if (!doctorId || !date) return;
+      const resp = await fetch(`/api/available-times?doctor_id=${doctorId}&date=${date}`);
+      const times = await resp.json();
+      select.innerHTML = '';
+      if (times.length === 0) {
+        select.innerHTML = '<option value="">Нет свободных слотов</option>';
+        return;
+      }
+      for (const t of times) {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        if (t === selectedTime) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+    function openRescheduleModal(apptId, date, time, doctorId) {
+      document.getElementById('reschedule_appt_id').value = apptId;
+      document.getElementById('reschedule_date').value = date;
+      document.getElementById('reschedule_doctor_id').value = doctorId;
+      fetchAvailableTimes(doctorId, date, time);
+      document.getElementById('rescheduleModal').style.display = 'flex';
+    }
+    document.getElementById('reschedule_date').addEventListener('change', function() {
+      const doctorId = document.getElementById('reschedule_doctor_id').value;
+      const date = this.value;
+      fetchAvailableTimes(doctorId, date);
+    });
+    function closeRescheduleModal() {
+      document.getElementById('rescheduleModal').style.display = 'none';
+    }
+    document.getElementById('rescheduleForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const apptId = document.getElementById('reschedule_appt_id').value;
+      const date = document.getElementById('reschedule_date').value;
+      const time = document.getElementById('reschedule_time').value;
+      const resp = await fetch(`/appointment/reschedule/${apptId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date, time })
+      });
+      if (resp.ok) {
+        location.reload();
+      } else {
+        alert('Ошибка при изменении записи');
+      }
+    };
+    </script>
+
+
+
+</body>
+</html> 

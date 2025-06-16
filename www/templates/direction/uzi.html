@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицина+</title>
+    <link rel="stylesheet" href="/static/css/direction.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+</head>
+<body>
+
+
+    
+
+
+    <div class="wrapper">
+
+
+        <header class="container">
+                    
+            <!-- <span class="logo">logo</span> -->
+            <a href="/"><img src="/static/image/logo.png" alt="site logo"></a>
+            <nav>
+                
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <!-- <li><a href="#">Контакты</a></li> -->
+                    <!-- <li><a href="#">О нас</a></li> -->
+                    {% if auth %}
+                        <li class="btn"><a href="/profile/me">Профиль</a></li>
+                    {% else %}
+                        <li class="btn"><a href="/profile/login">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+
+
+
+        <div class="container">
+
+
+            <div class="doctors-main">
+
+
+
+                <div class="promo prom-doctors">
+
+                
+
+                    <div class="promo-title">
+
+                        <h3>УЗИ-диагностика</h3>
+                        <p><span style="font-weight: 600;">Врач УЗИ</span> — это специалист, который проводит ультразвуковое исследование различных органов и систем организма.</p>
+                        <p>УЗИ-диагност проводит обследование внутренних органов, сосудов, суставов, а также выполняет УЗИ при беременности и других специальных исследованиях.</p>
+                    </div>
+
+                    <div class="promo-img">
+                        <img src="/static/image/promo/promo-10.png" alt="РекламаПромо-10">
+                    </div>
+                
+                    
+                </div>
+
+
+                <div class="doctors-title-main">
+                    <h2 class="doctors-title">Врачи УЗИ-диагностики</h2>
+                </div>
+
+
+                
+                <div class="doctors-slider-wrapper">
+
+                    
+                    <div class="doctor-slider-nav">
+
+
+                        <!-- <div class="doctor-slider-btn-prev"></div>
+                        <div class="doctor-slider-btn-next"></div> -->
+    
+    
+                        <div class="doctor-slider-btn-prev">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M15 6L9 12L15 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+    
+                        <div class="doctor-slider-btn-next">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M9 6L15 12L9 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+    
+    
+    
+    
+                    </div>
+
+
+
+                    <div class="swiper cards-doctors">
+
+                    
+
+                    
+
+
+
+                        <div class="swiper-wrapper">
+    
+    
+                            
+    
+    
+                            {% for doctor in doctors %}
+                            <div class="swiper-slide doctor card-{{ loop.index }}">
+                                <img src="{{ '/static' + doctor.photo if doctor.photo else '/static/image/default.png' }}" alt="">
+                                <div class="card-doc-title">
+                                    <h3>{{ doctor.lname }} {{ doctor.fname }}</h3>
+                                    <p class="p-title">{{ doctor.title }}</p>
+                                    <div class="card-doc-title-p">
+                                        <p class="p-experience"><span style="font-weight: 600;">Стаж:</span> {{ doctor.experience }} лет</p>
+                                        <p class="p-price"><span style="font-weight: 600;">Прием от:</span> {{ doctor.price }} ₽</p>
+                                    </div>
+                                </div>
+                                <div class="doctor-btn-group">
+                                    <a href="/appointment/book/{{ doctor.id }}" class="doctor-btn">Записаться</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+    
+    
+    
+    
+                        </div>
+    
+    
+    
+                    </div>
+
+
+                    
+
+
+
+                </div>
+
+
+
+    
+                  
+    
+            </div>
+    
+    
+        </div>  
+
+
+    </div>
+
+    
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/static/js/direction.js"></script>
+
+</body>
+</html>
