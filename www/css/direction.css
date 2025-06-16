@@ -23,7 +23,9 @@ html {
     scroll-behavior: smooth; 
 } */
 
-
+body {
+    background-color: #191919;
+}
 
 
 p {
@@ -48,13 +50,19 @@ h3 {
 
 
 
-
+body, html {
+    overflow-x: hidden;
+}
+  
 
 
 .container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 15px;
     margin: 0 auto;
-    width: 1400px;
 }
+  
 
 
 header {
@@ -211,8 +219,10 @@ header nav ul li.btn a:hover {
 
 
 .cards-doctors {
-    overflow: visible;
+    width: 100%;
+    overflow: hidden;
 }
+  
 
 .doctor img {
     border-radius: 25px 25px 0 0;
@@ -225,7 +235,7 @@ header nav ul li.btn a:hover {
     width: 357px;
     background-color: rgb(255, 255, 255);
     margin-top: 40px;
-    border: 1px solid red;
+    border: 2px solid rgb(198,156,114, 1);
     clear: both;
     content: "";
     display: flex;
@@ -261,6 +271,7 @@ header nav ul li.btn a:hover {
 
 .doctor-btn-group {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .doctor-btn {
@@ -295,13 +306,13 @@ header nav ul li.btn a:hover {
 
 
 .swiper-wrapper {
-    display: flex !important;
+    display: flex;
 }
-
 .swiper-slide {
+    width: auto; 
+    max-width: 357px; 
     flex-shrink: 0;
-    width: 357px !important;
-    height: 780px !important;
+    height: auto;
 }
 
 
@@ -358,36 +369,168 @@ header nav ul li.btn a:hover {
 
 
 
+
+
+
 /* АДАПТАЦИЯ ПОД МОБИЛКИ -------------------------------------- */
 
 
 @media (max-width: 768px) {
+    .swiper-slide {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    header {
+        padding: 20px 0;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        
+    }
+
+    header.container a img,
+    header img {
+        width: 60px !important;
+        margin: 0 10px 0 0;
+        display: block;
+    }
+
+    header.container {
+        margin-top: 30px;
+    }
+
+    header nav {
+        width: auto;
+        float: none;
+        margin: 0;
+    }
+
+    header nav ul {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* ПРОМО-БЛОК */
+    .promo {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .promo-title {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .promo h3 {
+        font-size: 28px;
+        padding: 30px 0 10px;
+        text-align: center;
+    }
+
+    .promo p {
+        font-size: 16px;
+        padding: 5px 0;
+        text-align: center;
+    }
+
+    .promo-img {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .promo-img img {
+        width: 80%;
+        border-radius: 15px;
+    }
+
+    /* ЗАГОЛОВОК ВРАЧЕЙ */
+    .doctors-title {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    /* КАРТОЧКИ ВРАЧЕЙ */
+    .doctor {
+        width: 100% !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .doctor img {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-doc-title h3 {
+        font-size: 20px;
+    }
+
+    .card-doc-title p {
+        font-size: 14px;
+    }
+
+    .card-doc-title-p {
+        font-size: 20px;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 15px;
+    }
+
+    .doctor-btn {
+        width: 90%;
+        margin: 15px auto;
+        font-size: 16px;
+        padding: 10px 0;
+    }
+    .doctor-btn-group {
+        margin-left: 20px;
+        width: 100%;
+    }
+
+    .doctor-btn-group a {
+        padding: 10px 15px;
+    }
+
+
+
+    /* Удалить боковые стрелки */
     .doctor-slider-btn-prev,
     .doctor-slider-btn-next {
-      width: 36px;
-      height: 36px;
-      left: 5px;
-      right: 5px;
-      top: auto;
-      bottom: -40px;
-      transform: none;
-      box-shadow: none;
-      background-color: transparent;
+        display: none;
     }
+
+    .doctors-slider-wrapper {
+        padding: 0;
+    }
+}
+
+
+
+
+    
+
+
+
+
+
   
-    .doctor-slider-btn-prev svg,
-    .doctor-slider-btn-next svg {
-      stroke: #ffffff;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 50%;
-      padding: 6px;
-    }
-  
-    .doctor-slider-btn-prev {
-      left: 15px;
-    }
-  
-    .doctor-slider-btn-next {
-      right: 15px;
-    }
-  }
+
+
+
+
+
+
