@@ -47,18 +47,18 @@
 - 2 Настройки проекта:
 - 2.1 После установок, в редакторе кода создайте виртуальное окружение с помощью команды
 > python -m venv venv
-- venv\Scripts\activate
+> venv\Scripts\activate
 - 2.2 Далее установите зависимости находящиеся в файле requirements.txt с помощью команды:
-- pip install -r requirements.txt
+> pip install -r requirements.txt
 - 2.3 С помощью кода ниже примените миграции базы данных:
-- alembic upgrade head
+> alembic upgrade head
 - 3 Запуск проекта:
 - 3.1 Запустите проект, активировав виртуальное окружение, если оно не активировано:
-- venv\Scripts\activate
+> venv\Scripts\activate
 - 3.2 Запустите сервер с помощью команды:
-- uvicorn main:app --host 0.0.0.0 --port 8000
+> uvicorn main:app --host 0.0.0.0 --port 8000
 - 4 Откройте в браузере запущенный проект, для это в адресную строку введите:
-- http://localhost:8000/
+> http://localhost:8000/
 
 ## Структура проекта
 
