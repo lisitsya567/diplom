@@ -16,7 +16,10 @@
 - Система отзывов
 
   ## 📷 Фото проекта
-  
+
+  ![Главная](https://github.com/lisitsya567/image_1/blob/main/main.png)
+  ![Плитки](https://github.com/lisitsya567/image_1/blob/main/plitki.png)
+  ![Карточки](https://github.com/lisitsya567/image_1/blob/main/vra4i.png)
 
   ## 🛠️ Технологии
 
